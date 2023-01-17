@@ -68,11 +68,11 @@ namespace VKIApplication.Business
             if (sonuc.Any())
             {
                 foreach (var item in sonuc)
-                {  
-                liste.Remove(item);
+                {
+                    liste.Remove(item);
+                }
+                 
             }
-            if (sonuc.Any())
-            Console.WriteLine($"{isim} isimli hasta silindi");
 
             string json = JsonSerializer.Serialize(liste, new JsonSerializerOptions { IncludeFields = true });
             DosyaIslemleri.Yaz(json);

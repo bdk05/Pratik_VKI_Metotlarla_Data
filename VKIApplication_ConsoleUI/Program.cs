@@ -73,7 +73,7 @@ namespace VKIApplication
             if (!data.Any())
                 Console.WriteLine("Böyle bir hasta yok");
             WriteFromList(data);
- 
+
             DevamMi();
 
         }
