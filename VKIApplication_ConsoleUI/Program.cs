@@ -15,7 +15,7 @@ namespace VKIApplication
         static void Menu()
         {
             Console.Clear();
-            Console.WriteLine("1.Yeni Hasta Bilgisi Gir\n2.Hasta Listesi\n3.Hasta Arama \n4.Çıkış\n ");
+            Console.WriteLine("1.Yeni Hasta Bilgisi Gir\n2.Hasta Listesi\n3.Hasta Arama \n4. Hasta Sil \n5.Çıkış\n ");
             MenuSelection();
 
         }
@@ -36,6 +36,9 @@ namespace VKIApplication
                     HastaAra();
                     break;
                 case 4:
+                    HastaSil();
+                    break;
+                case 5:
                     Environment.Exit(0);
                     break;
                 default:
@@ -44,6 +47,17 @@ namespace VKIApplication
                     break;
             }
 
+        }
+
+        private static void HastaSil()
+        {
+            Console.WriteLine("Hasta adi giriniz: ");
+            string isim = Console.ReadLine();
+            VKIService.IsimdenSil(isim);
+          //  var data = VKIService.IsimdenArama(isim);
+            
+            DevamMi();
+            
         }
 
         private static void HastaAra()

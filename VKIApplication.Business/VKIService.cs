@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using VKIApplication.Business;
 using VKIApplication.Data;
 
@@ -46,6 +47,9 @@ namespace VKIApplication.Business
                       where q.ad.ToLower() == isim.ToLower()
                       select q).ToList();
 
+            if (!sonuc.Any())
+                Console.WriteLine("Böyle bir hasta yok");
+            return sonuc.AsReadOnly();
 
             //var sonuc = new List<VKI>();
 
@@ -56,7 +60,26 @@ namespace VKIApplication.Business
             //        sonuc.Add(item);
             //    }
             //}
-            return sonuc.AsReadOnly();
+            
+        }
+
+        public static void IsimdenSil(string isim)
+        {
+            var sonuc= IsimdenArama(isim);
+
+            foreach (var item in sonuc)
+            {
+                liste.Remove(item);
+            }
+            if (sonuc.Any())
+            Console.WriteLine($"{isim} isimli hasta silindi");
+
+            string json = JsonSerializer.Serialize(liste, new JsonSerializerOptions { IncludeFields = true });
+            DosyaIslemleri.Yaz(json);
+
+           // return liste;
+
+
         }
 
     }
