@@ -39,15 +39,23 @@ namespace VKIApplication.Business
         public static IReadOnlyCollection<VKI> IsimdenArama(string isim)
         {
             GetVKIList();
-            var sonuc = new List<VKI>();
 
-            foreach (var item in liste)
-            {
-                if (item.ad.ToLower()==isim.ToLower())
-                {
-                    sonuc.Add(item);
-                }
-            }
+           // var sonuc = liste.Where(q => q.ad.ToLower() == isim.ToLower());
+             
+            var sonuc=(from q in liste
+                      where q.ad.ToLower() == isim.ToLower()
+                      select q).ToList();
+
+
+            //var sonuc = new List<VKI>();
+
+            //foreach (var item in liste)
+            //{
+            //    if (item.ad.ToLower()==isim.ToLower())
+            //    {
+            //        sonuc.Add(item);
+            //    }
+            //}
             return sonuc.AsReadOnly();
         }
 
