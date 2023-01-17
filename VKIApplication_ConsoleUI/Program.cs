@@ -53,9 +53,13 @@ namespace VKIApplication
         {
             Console.WriteLine("Hasta adi giriniz: ");
             string isim = Console.ReadLine();
-            VKIService.IsimdenSil(isim);
-          //  var data = VKIService.IsimdenArama(isim);
-            
+            var data=VKIService.IsimdenSil(isim);
+            if (data.Any())
+               Console.WriteLine($"{isim} isimli hasta silindi");
+            else
+                Console.WriteLine("Böyle bir hasta yok");
+
+
             DevamMi();
             
         }
@@ -66,7 +70,10 @@ namespace VKIApplication
             string isim=Console.ReadLine(); 
             var data=VKIService.IsimdenArama(isim);
 
+            if (!data.Any())
+                Console.WriteLine("Böyle bir hasta yok");
             WriteFromList(data);
+ 
             DevamMi();
 
         }

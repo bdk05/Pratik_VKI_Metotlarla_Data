@@ -47,8 +47,7 @@ namespace VKIApplication.Business
                       where q.ad.ToLower() == isim.ToLower()
                       select q).ToList();
 
-            if (!sonuc.Any())
-                Console.WriteLine("Böyle bir hasta yok");
+            
             return sonuc.AsReadOnly();
 
             //var sonuc = new List<VKI>();
@@ -63,21 +62,21 @@ namespace VKIApplication.Business
             
         }
 
-        public static void IsimdenSil(string isim)
+        public static IReadOnlyCollection<VKI> IsimdenSil(string isim)
         {
             var sonuc= IsimdenArama(isim);
-
-            foreach (var item in sonuc)
-            {
-                liste.Remove(item);
-            }
             if (sonuc.Any())
-            Console.WriteLine($"{isim} isimli hasta silindi");
+            {
+                foreach (var item in sonuc)
+                {  
+                liste.Remove(item);
+                }
+            
+                string json = JsonSerializer.Serialize(liste, new JsonSerializerOptions { IncludeFields = true });
+                DosyaIslemleri.Yaz(json); 
+            }
 
-            string json = JsonSerializer.Serialize(liste, new JsonSerializerOptions { IncludeFields = true });
-            DosyaIslemleri.Yaz(json);
-
-           // return liste;
+            return sonuc;
 
 
         }
