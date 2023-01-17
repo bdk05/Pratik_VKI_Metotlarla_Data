@@ -70,11 +70,12 @@ namespace VKIApplication.Business
                 foreach (var item in sonuc)
                 {  
                 liste.Remove(item);
-                }
-            
-                string json = JsonSerializer.Serialize(liste, new JsonSerializerOptions { IncludeFields = true });
-                DosyaIslemleri.Yaz(json); 
             }
+            if (sonuc.Any())
+            Console.WriteLine($"{isim} isimli hasta silindi");
+
+            string json = JsonSerializer.Serialize(liste, new JsonSerializerOptions { IncludeFields = true });
+            DosyaIslemleri.Yaz(json);
 
             return sonuc;
 
